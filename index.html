@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>鹈鹕骑车 · Pelican on a Bicycle</title>
+<meta name="description" content="海边黄昏的鹈鹕骑行动画，纯 SVG 制作。两个版本：卡通踩踏与鸟踝结构版（附解剖标注）。">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#0a0d13;
+    --ink:#eef2f6;
+    --muted:#8e9cae;
+    --line:rgba(255,255,255,.09);
+    --cream:#f4ead7;
+    --teal:#9ed7cf;
+    --coral:#e59a80;
+  }
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1000px 600px at 12% -8%, #263244 0%, transparent 58%),
+      radial-gradient(800px 520px at 105% 108%, #241d24 0%, transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    width:min(1120px,100%);
+    margin:0 auto;
+    padding:clamp(32px,5vw,68px) clamp(16px,4vw,32px) 36px;
+  }
+  header{max-width:760px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);
+    border:1px solid rgba(158,215,207,.22);
+    background:rgba(158,215,207,.05);
+    border-radius:999px;padding:7px 12px;
+  }
+  .eyebrow i{width:5px;height:5px;border-radius:50%;background:var(--coral);display:block}
+  h1{
+    margin:22px 0 14px;
+    font-size:clamp(42px,6.4vw,74px);
+    line-height:1.02;
+    letter-spacing:-.035em;
+    font-weight:650;
+    background:linear-gradient(100deg, #fff8ea 0%, var(--cream) 42%, #e8b99a 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lede{
+    margin:0;
+    max-width:640px;
+    font-size:clamp(14px,1.5vw,16px);
+    line-height:1.75;
+    color:#b7c2cf;
+  }
+  .lede b{color:#eef2f6;font-weight:600}
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    margin-top:clamp(30px,4vw,44px);
+  }
+  @media (max-width:780px){
+    .grid{grid-template-columns:1fr;gap:18px}
+  }
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,255,255,.18);
+    box-shadow:0 32px 70px -34px rgba(0,0,0,.95);
+  }
+  .thumb{
+    display:block;
+    position:relative;
+    aspect-ratio:1000/640;
+    overflow:hidden;
+    background:#0f141d;
+  }
+  .thumb img{
+    display:block;
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .card:hover .thumb img{transform:scale(1.015)}
+  .thumb::after{
+    content:"";
+    position:absolute;inset:0;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
+    border-radius:inherit;
+    pointer-events:none;
+  }
+  .card-body{padding:21px 24px 25px}
+  .tag{
+    font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  }
+  .card h2{
+    margin:8px 0 9px;
+    font-size:21px;font-weight:600;letter-spacing:.005em;
+  }
+  .card p{
+    margin:0;
+    font-size:13.5px;line-height:1.7;color:#9fabb9;
+  }
+  .links{display:flex;flex-wrap:wrap;gap:9px;margin-top:19px}
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;
+    text-decoration:none;
+    border-radius:999px;
+    padding:10px 16px;
+    font-size:12.5px;font-weight:600;letter-spacing:.02em;
+    transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{
+    background:var(--cream);
+    color:#16202a;
+    border:1px solid var(--cream);
+  }
+  .btn.primary:hover{background:#fff8ec;border-color:#fff8ec}
+  .btn.ghost{
+    color:#d6dfe8;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.03);
+  }
+  .btn.ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.26)}
+  .btn svg{width:12px;height:12px}
+
+  footer{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    margin-top:26px;padding:18px 4px 0;
+    border-top:1px solid rgba(255,255,255,.07);
+    color:#748294;font-size:11.5px;line-height:1.7;
+  }
+  footer code{
+    font:inherit;color:#9aa8b8;
+  }
+  .hint{
+    display:flex;align-items:center;gap:8px;color:#8e9cae;font-size:12px;margin-top:18px;
+  }
+  .hint i{
+    width:6px;height:6px;border-radius:50%;background:var(--teal);flex:0 0 auto;
+    box-shadow:0 0 0 4px rgba(158,215,207,.08);
+  }
+  @media (max-width:560px){
+    .card-body{padding:18px 18px 21px}
+    footer{font-size:11px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow"><i></i>SVG · 2D ANIMATION</span>
+    <h1>鹈鹕骑车</h1>
+    <p class="lede">
+      黄昏的海滨公路上，一只戴珊瑚色头盔、系金色围巾的鹈鹕骑着青绿色自行车。
+      同一个场景做了<b>两个版本</b>：一版是更直观的卡通踩踏，一版按鸟的踝结构重画了腿，并把藏在羽毛下的骨骼标了出来。
+    </p>
+    <div class="hint"><i></i>点击任意卡片打开完整动画；标注版可直接跳到解剖标注视图。</div>
+  </header>
+
+  <main class="grid">
+    <article class="card">
+      <a class="thumb" href="pelican-bike.html" aria-label="打开原版动画">
+        <img src="preview-original.jpg" alt="原版鹈鹕骑车动画截图" width="1016" height="646" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="tag">01 · Cartoon</div>
+        <h2>原版 · 卡通读法</h2>
+        <p>膝关节向前弯，像人骑车一样踩踏，动作第一眼最容易读懂。保留最初完成的那一版。</p>
+        <div class="links">
+          <a class="btn primary" href="pelican-bike.html">
+            打开动画
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h7M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <a class="thumb" href="pelican-bike-avian-legs.html" aria-label="打开鸟踝结构版动画">
+        <img src="preview-avian.jpg" alt="鸟踝结构版鹈鹕骑车动画截图，带有腿部解剖标注" width="1016" height="646" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="tag">02 · Avian Ankle</div>
+        <h2>鸟踝结构版</h2>
+        <p>画面里向后弯的是踝（跗间关节），真正的膝藏在羽毛里。腿上有可开关的解剖标注，1–5 号对应骨骼说明。</p>
+        <div class="links">
+          <a class="btn primary" href="pelican-bike-avian-legs.html">
+            打开动画
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h7M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn ghost" href="pelican-bike-avian-legs.html#anatomy">直接看标注</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div>纯 SVG + CSS / JS · 单文件、自包含、无外部依赖 · 手机与桌面均可观看</div>
+    <div><code>pelican-bike.html</code> · <code>pelican-bike-avian-legs.html</code></div>
+  </footer>
+</div>
+</body>
+</html>
